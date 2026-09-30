@@ -1,43 +1,187 @@
-/* ══════════════════════════════════════════════
-   APP STATE
-══════════════════════════════════════════════ */
-const state = {
-  currentScreen: 'screenSplash'
-};
+/* ══════════════════════════════════════════════════════════════
+   AP SCHOOLS — SHARED APP HELPERS
+   Used by every page in /pages/
+══════════════════════════════════════════════════════════════ */
 
 /* ══════════════════════════════════════════════
-   SCREEN NAVIGATION
+   NAVIGATION
 ══════════════════════════════════════════════ */
-function showScreen(screenId) {
-  document.querySelectorAll('.screen').forEach(s => {
-    s.hidden = true;
+function goTo(path) {
+  window.location.href = path;
+}
+
+function goBack() {
+  if (document.referrer && document.referrer !== '') {
+    window.history.back();
+  } else {
+    window.location.href = '../index.html';
+  }
+}
+
+/* ══════════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════════ */
+function showToast(message, type = 'success') {
+  let toast = document.getElementById('toast');
+
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'toast';
+    toast.className = 'toast';
+    document.body.appendChild(toast);
+  }
+
+  // Reset classes
+  toast.className = 'toast';
+  if (type === 'error')   toast.classList.add('toast-error');
+  if (type === 'warning') toast.classList.add('toast-warning');
+
+  toast.textContent = message;
+
+  // Force reflow so animation restarts
+  void toast.offsetWidth;
+  toast.classList.add('toast-show');
+
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => {
+    toast.classList.remove('toast-show');
+  }, 2600);
+}
+
+/* ══════════════════════════════════════════════
+   STORAGE HELPERS
+══════════════════════════════════════════════ */
+function getSetup() {
+  try {
+    return JSON.parse(localStorage.getItem('ap_device_setup') || 'null');
+  } catch (e) {
+    return null;
+  }
+}
+
+function hasSetup() {
+  const s = getSetup();
+  return !!(s && s.schoolName && s.village && s.district && s.mandal);
+}
+
+function getSchoolShort() {
+  const s = getSetup();
+  if (!s) return 'AP SCHOOL';
+  return s.schoolName || 'AP School';
+}
+
+/* ══════════════════════════════════════════════
+   ROUTE GUARD
+   Ensures user has completed setup/activation
+══════════════════════════════════════════════ */
+function requireSetup() {
+  if (!hasSetup()) {
+    goTo('./setup.html');
+    return false;
+  }
+  return true;
+}
+
+function requireActivation() {
+  const activated = localStorage.getItem('ap_activated') === 'true';
+  if (!activated) {
+    goTo('./activation.html');
+    return false;
+  }
+  return true;
+}
+
+function requireLogin() {
+  const loggedIn = sessionStorage.getItem('ap_logged_in') === 'true';
+  if (!loggedIn) {
+    goTo('./login.html');
+    return false;
+  }
+  return true;
+}
+
+/* ══════════════════════════════════════════════
+   HEADER INJECTOR
+   Auto-fills header with school name if present
+══════════════════════════════════════════════ */
+function injectHeaderInfo() {
+  const setup = getSetup();
+  if (!setup) return;
+
+  // Elements with data-header-school
+  document.querySelectorAll('[data-header-school]').forEach(el => {
+    el.textContent = setup.schoolName || 'School';
   });
 
-  const target = document.getElementById(screenId);
-  if (target) {
-    target.hidden = false;
-    state.currentScreen = screenId;
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }
+  // Elements with data-header-village
+  document.querySelectorAll('[data-header-village]').forEach(el => {
+    el.textContent = setup.village || '';
+  });
+
+  // Elements with data-header-title (school, village)
+  document.querySelectorAll('[data-header-title]').forEach(el => {
+    el.textContent = `${setup.schoolName || ''} · ${setup.village || ''}`.trim().replace(/^·|·$/g, '');
+  });
 }
 
 /* ══════════════════════════════════════════════
-   BOOT
+   FORM HELPERS
 ══════════════════════════════════════════════ */
-function initApp() {
-  // Start at splash
-  showScreen('screenSplash');
-
-  // Bind Continue button
-  const btnContinue = document.getElementById('btnSplashContinue');
-  if (btnContinue) {
-    btnContinue.addEventListener('click', () => {
-      // NEXT: → Screen 2 — Device Setup
-      // Uncomment when Screen 2 is built:
-      // showScreen('screenSetup');
-      console.log('Continue tapped — next screen pending');
-    });
-  }
+function readForm(ids) {
+  const data = {};
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) data[id] = (el.value || '').trim();
+  });
+  return data;
 }
 
-document.addEventListener('DOMContentLoaded', initApp);
+function validateRequired(ids) {
+  for (const id of ids) {
+    const el = document.getElementById(id);
+    if (!el) continue;
+    if (!el.value || !el.value.trim()) {
+      el.focus();
+      return { ok: false, id, el };
+    }
+  }
+  return { ok: true };
+}
+
+/* ══════════════════════════════════════════════
+   DATE HELPERS
+══════════════════════════════════════════════ */
+function todayISO() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function formatDateNice(iso) {
+  if (!iso) return '';
+  const [y, m, d] = iso.split('-');
+  return `${d}-${m}-${y}`;
+}
+
+function formatTime12() {
+  const d = new Date();
+  let h = d.getHours();
+  const m = String(d.getMinutes()).padStart(2, '0');
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12;
+  if (h === 0) h = 12;
+  return `${h}:${m} ${ampm}`;
+}
+
+/* ══════════════════════════════════════════════
+   AUTO-DETECT PAGE & BOOT
+══════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  const path = window.location.pathname;
+  injectHeaderInfo();
+
+  // Fill any date inputs marked with data-today
+  document.querySelectorAll('[data-today]').forEach(el => {
+    if (el.type === 'date') el.value = todayISO();
+  });
+
+  // Highlight current page in nav if needed (future)
+});
