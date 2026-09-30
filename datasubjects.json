@@ -1,0 +1,22 @@
+{
+  "primary": {
+    "label": "Primary",
+    "classes": [1, 2],
+    "subjects": ["Telugu", "Hindi", "English", "Maths", "EVS", "Computers"]
+  },
+  "middle": {
+    "label": "Middle",
+    "classes": [3, 4, 5],
+    "subjects": ["Telugu", "Hindi", "English", "Maths", "GS", "Social", "Computers", "Vedic Maths"]
+  },
+  "upper": {
+    "label": "Upper Middle",
+    "classes": [6, 7],
+    "subjects": ["Telugu", "Hindi", "English", "Maths", "GS", "Social"]
+  },
+  "high": {
+    "label": "High School",
+    "classes": [8, 9, 10],
+    "subjects": ["Telugu", "Hindi", "English", "Maths", "Social", "Physics", "Biology"]
+  }
+}

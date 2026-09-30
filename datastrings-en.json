@@ -1,0 +1,159 @@
+{
+  "app": {
+    "name": "AP Schools E-Diary & Announcement System",
+    "version": "1.0.0",
+    "developer": "Team @Valiass"
+  },
+  "splash": {
+    "govt": "Government of Andhra Pradesh",
+    "dept": "School Education Department",
+    "title": "E-Diary & Announcement System",
+    "subtitle": "Digital Platform for AP Government Schools",
+    "continue": "Continue"
+  },
+  "setup": {
+    "title": "Device Setup",
+    "subtitle": "Fill school details once. Editable later.",
+    "location": "Location",
+    "school": "School",
+    "officers": "Officers",
+    "district": "District",
+    "mandal": "Mandal",
+    "schoolName": "School Name",
+    "village": "Village",
+    "deo": "DEO Name",
+    "mo": "Mandal Officer Name",
+    "principal": "Principal Name",
+    "save": "Save & Continue",
+    "reset": "Reset"
+  },
+  "activation": {
+    "title": "Activate Your Device",
+    "subtitle": "Enter the School Secret Code provided by Team Valiass",
+    "label": "School Secret Code",
+    "button": "Activate Device",
+    "attempts": "attempts left",
+    "locked": "Device Temporarily Locked",
+    "lockedSub": "Too many incorrect attempts.",
+    "tryAgainIn": "Try again in",
+    "help": "Don't have a code?",
+    "helpText": "Contact Team Valiass to receive your School Secret Code.",
+    "call": "Call",
+    "whatsapp": "WhatsApp"
+  },
+  "createPassword": {
+    "title": "Create Your Login Password",
+    "subtitle": "This password opens the app every day.",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "hint": "Minimum 6 characters · Case-sensitive",
+    "save": "Save Password",
+    "note": "Remember this password. If you forget it, contact Team Valiass to reset."
+  },
+  "login": {
+    "title": "Enter Password",
+    "subtitle": "Use your login password to open the app",
+    "password": "Password",
+    "button": "Open App",
+    "forgot": "Forgot password?",
+    "forgotText": "Contact Team Valiass to reset"
+  },
+  "forgot": {
+    "title": "Reset Your Password",
+    "subtitle": "Enter the School Secret Code provided by Team Valiass",
+    "button": "Verify Code"
+  },
+  "roles": {
+    "title": "Select Your Role",
+    "subtitle": "Choose how you want to use the app today",
+    "teacher": "Teacher",
+    "teacherDesc": "E-Diary · Announcement",
+    "cook": "Cook",
+    "cookDesc": "Today's Menu",
+    "footer": "Made for AP Government Schools"
+  },
+  "teacher": {
+    "greeting": "Good day, Teacher",
+    "quickActions": "Quick Actions",
+    "ediary": "E-Diary",
+    "ediarySub": "Fill daily notes",
+    "announce": "Announce",
+    "announceSub": "Send notice",
+    "history": "My History",
+    "submittedEdiary": "Submitted E-Diary",
+    "submittedAnnounce": "Submitted Announcements",
+    "pending": "Pending (not shared)"
+  },
+  "cook": {
+    "greeting": "Good day, Cook",
+    "todayMenu": "Today's Menu",
+    "notSubmitted": "Not yet submitted",
+    "fillMenu": "Fill Today's Menu",
+    "history": "My History",
+    "pastMenus": "Past Menus"
+  },
+  "ediary": {
+    "title": "E-Diary",
+    "basicInfo": "Basic Info",
+    "teacher": "Teacher Name",
+    "date": "Date",
+    "class": "Class",
+    "subjects": "Subjects",
+    "comments": "Comments",
+    "addSubject": "+ Add Subject (max 3)",
+    "review": "Review & Continue",
+    "draft": "Save Draft"
+  },
+  "announce": {
+    "title": "Announcement",
+    "type": "Type",
+    "school": "School-wide",
+    "class": "Class-specific",
+    "title": "Title",
+    "details": "Details"
+  },
+  "menu": {
+    "title": "Today's Menu",
+    "cook": "Cook Name",
+    "date": "Date",
+    "meal": "Meal",
+    "breakfast": "Breakfast",
+    "lunch": "Lunch",
+    "snack": "Snack",
+    "items": "Menu Items",
+    "special": "Special Note",
+    "served": "Students Served"
+  },
+  "review": {
+    "title": "Review",
+    "preview": "Preview",
+    "seal": "Get Principal Seal",
+    "share": "Share"
+  },
+  "share": {
+    "saved": "Saved Successfully",
+    "shareWith": "Now share with Principal:",
+    "whatsapp": "Share to WhatsApp",
+    "download": "Download PNG Poster",
+    "back": "Back to Dashboard"
+  },
+  "settings": {
+    "title": "Settings",
+    "editOfficers": "Edit Officer Names",
+    "deviceInfo": "Device Info",
+    "language": "Language",
+    "backup": "Backup Data",
+    "restore": "Restore Data",
+    "reset": "Reset Device",
+    "about": "About"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "loading": "Loading…"
+  }
+}
